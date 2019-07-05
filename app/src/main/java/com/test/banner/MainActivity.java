@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         mSwipeLayout.setOnRefreshListener(this);
         listView = (ListView) findViewById(R.id.list);
         View header = LayoutInflater.from(this).inflate(R.layout.header, null);
-        banner = (Banner) header.findViewById(R.id.banner);
+        banner = new Banner(this);
         banner.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 App.H / 4));
         listView.addHeaderView(banner);
@@ -78,9 +78,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         unSelectedDrawable.setGradientType(GradientDrawable.OVAL);
         unSelectedDrawable.setColor(Color.parseColor("#FFFFFF"));
         unSelectedDrawable.setCornerRadius(30);
-
-        banner.setSelectedDrawable(selectedDrawable);
-        banner.setUnSelectedDrawable(unSelectedDrawable);
+        banner.setIndicatorDrawable(selectedDrawable, unSelectedDrawable, 30, 30);
         //简单使用
         banner.setImages(App.images).setImageLoader(new GlideImageLoader()).setOnBannerListener(this).start();
 

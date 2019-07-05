@@ -155,16 +155,13 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         typedArray.recycle();
     }
 
-    public void setSelectedDrawable(Drawable selectedDrawable) {
-        this.selectedDrawable = selectedDrawable;
-        this.mIndicatorHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
-        this.mIndicatorWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
-    }
 
-    public void setUnSelectedDrawable(Drawable unSelectedDrawable) {
+    public void setIndicatorDrawable(Drawable selectedDrawable, Drawable unSelectedDrawable,
+                            int mIndicatorWidth, int mIndicatorHeight) {
+        this.selectedDrawable = selectedDrawable;
         this.unSelectedDrawable = unSelectedDrawable;
-        this.mIndicatorHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
-        this.mIndicatorWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
+        this.mIndicatorWidth = mIndicatorWidth;
+        this.mIndicatorHeight = mIndicatorHeight;
     }
 
     private void initViewPagerScroll() {
