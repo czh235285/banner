@@ -151,19 +151,20 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
                 R.drawable.no_banner);
 
         unSelectedDrawable = getContext().getResources().getDrawable(mIndicatorUnselectedResId);
-//        selectedGradientDrawable.setColor(selectedIndicatorColor);
-//        selectedGradientDrawable.setSize(selectedIndicatorWidth, selectedIndicatorHeight);
-//        selectedLayerDrawable = new LayerDrawable(new Drawable[]{selectedGradientDrawable});
         selectedDrawable = getContext().getResources().getDrawable(mIndicatorSelectedResId);
         typedArray.recycle();
     }
 
     public void setSelectedDrawable(Drawable selectedDrawable) {
         this.selectedDrawable = selectedDrawable;
+        this.mIndicatorHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
+        this.mIndicatorWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
     }
 
     public void setUnSelectedDrawable(Drawable unSelectedDrawable) {
         this.unSelectedDrawable = unSelectedDrawable;
+        this.mIndicatorHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
+        this.mIndicatorWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
     }
 
     private void initViewPagerScroll() {
