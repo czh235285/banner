@@ -38,6 +38,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     public String tag = "banner";
     private int mIndicatorMargin = BannerConfig.PADDING_SIZE;
     private int mIndicatorWidth;
+    private int mIndicatorYOffset = 0;
     private int mIndicatorHeight;
     private int indicatorSize;
     private int bannerBackgroundImage;
@@ -157,11 +158,15 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 
 
     public void setIndicatorDrawable(Drawable selectedDrawable, Drawable unSelectedDrawable,
-                            int mIndicatorWidth, int mIndicatorHeight) {
+                                     int mIndicatorWidth, int mIndicatorHeight) {
         this.selectedDrawable = selectedDrawable;
         this.unSelectedDrawable = unSelectedDrawable;
         this.mIndicatorWidth = mIndicatorWidth;
         this.mIndicatorHeight = mIndicatorHeight;
+    }
+
+    public void setmIndicatorYOffset(int yOffset) {
+        this.mIndicatorYOffset = yOffset;
     }
 
     private void initViewPagerScroll() {
@@ -432,6 +437,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mIndicatorWidth,
                     mIndicatorHeight);
             params.leftMargin = mIndicatorMargin;
+            params.bottomMargin = mIndicatorYOffset;
             params.rightMargin = mIndicatorMargin;
             if (i == 0) {
                 imageView.setImageDrawable(selectedDrawable);
