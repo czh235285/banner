@@ -430,6 +430,10 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private void createIndicator() {
         indicatorImages.clear();
         indicator.removeAllViews();
+        RelativeLayout.LayoutParams indicatorParams = new RelativeLayout.LayoutParams(-1, -2);
+        indicatorParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        indicatorParams.bottomMargin = mIndicatorYOffset;
+        indicator.setLayoutParams(indicatorParams);
         indicatorInside.removeAllViews();
         for (int i = 0; i < count; i++) {
             ImageView imageView = new ImageView(context);
@@ -437,7 +441,6 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mIndicatorWidth,
                     mIndicatorHeight);
             params.leftMargin = mIndicatorMargin;
-            params.bottomMargin = mIndicatorYOffset;
             params.rightMargin = mIndicatorMargin;
             if (i == 0) {
                 imageView.setImageDrawable(selectedDrawable);
