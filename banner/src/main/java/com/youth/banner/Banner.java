@@ -38,7 +38,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     public String tag = "banner";
     private int mIndicatorMargin = BannerConfig.PADDING_SIZE;
     private int mIndicatorWidth;
-    private int mIndicatorYOffset = 0;
+    private int mIndicatorYOffset = 30;
     private int mIndicatorHeight;
     private int indicatorSize;
     private int bannerBackgroundImage;
@@ -430,10 +430,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private void createIndicator() {
         indicatorImages.clear();
         indicator.removeAllViews();
-        RelativeLayout.LayoutParams indicatorParams = new RelativeLayout.LayoutParams(-1, -2);
-        indicatorParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        indicatorParams.bottomMargin = mIndicatorYOffset;
-        indicator.setLayoutParams(indicatorParams);
+        indicator.setPadding(0, 0, 0, mIndicatorYOffset);
         indicatorInside.removeAllViews();
         for (int i = 0; i < count; i++) {
             ImageView imageView = new ImageView(context);
