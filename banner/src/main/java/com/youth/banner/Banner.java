@@ -3,7 +3,6 @@ package com.youth.banner;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -361,6 +360,19 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         } else if (bannerStyle == BannerConfig.NUM_INDICATOR) {
             numIndicator.setText("1/" + count);
         }
+    }
+
+
+    public void setViews(List<View> views) {
+        if (views == null || views.size() <= 0) {
+            bannerDefaultImage.setVisibility(VISIBLE);
+            Log.e(tag, "The image data set is empty.");
+            return;
+        }
+        bannerDefaultImage.setVisibility(GONE);
+        initImages();
+        imageViews.addAll(views);
+        setData();
     }
 
     private void setImageList(List<?> imagesUrl) {
