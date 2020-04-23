@@ -364,6 +364,8 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 
 
     public void setViews(List<View> views) {
+        this.count = views.size();
+        setBannerStyleUI();
         if (views == null || views.size() <= 0) {
             bannerDefaultImage.setVisibility(VISIBLE);
             Log.e(tag, "The image data set is empty.");
@@ -371,7 +373,19 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         }
         bannerDefaultImage.setVisibility(GONE);
         initImages();
-        imageViews.addAll(views);
+
+        for (int i = 0; i <= count + 1; i++) {
+            View v = null;
+            if (i == 0) {
+                v = views.get(count - 1);
+            } else if (i == count + 1) {
+                v = views.get(0);
+            } else {
+                v = views.get(i - 1);
+            }
+            imageViews.add(v);
+        }
+
         setData();
     }
 
@@ -440,6 +454,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     }
 
     private void createIndicator() {
+        Log.e(tag, mIndicatorWidth + "  " + mIndicatorHeight + "  " + selectedDrawable);
         indicatorImages.clear();
         indicator.removeAllViews();
         indicator.setPadding(0, 0, 0, mIndicatorYOffset);
@@ -550,6 +565,10 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
+            if (imageViews.get(position).getParent()!=null){
+                ((ViewGroup)imageViews.get(position).getParent()).removeView(imageViews.get(position));
+            }
+
             container.addView(imageViews.get(position));
             View view = imageViews.get(position);
             if (bannerListener != null) {

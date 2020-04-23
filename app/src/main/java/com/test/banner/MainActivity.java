@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.test.banner.demo.BannerAnimationActivity;
@@ -76,11 +79,24 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         GradientDrawable unSelectedDrawable = new GradientDrawable();
         unSelectedDrawable.setGradientType(GradientDrawable.OVAL);
-        unSelectedDrawable.setColor(Color.parseColor("#FFFFFF"));
+        unSelectedDrawable.setColor(Color.parseColor("#FFf000"));
         unSelectedDrawable.setCornerRadius(30);
         banner.setIndicatorDrawable(selectedDrawable, unSelectedDrawable, 30, 30);
-        //简单使用
-        banner.setImages(App.images).setImageLoader(new GlideImageLoader()).setOnBannerListener(this).start();
+////        简单使用
+//        banner.setImages(App.images).setImageLoader(new GlideImageLoader()).setOnBannerListener
+//                (this).start();
+
+        List<View> views = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            TextView tv = new TextView(this);
+            tv.setGravity(Gravity.CENTER);
+//            FrameLayout.LayoutParams lp=new FrameLayout.LayoutParams(-1,-1);
+//            tv.setLayoutParams(lp);
+            tv.setText(i + "");
+            views.add(tv);
+        }
+
+        banner.setViews(views);
 
     }
 
