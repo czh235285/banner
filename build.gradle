@@ -3,13 +3,11 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven {
-            url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
-        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.1'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 
     }
 }
@@ -18,12 +16,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "https://jitpack.io" }
-        maven { url 'https://dl.bintray.com/jenly/maven' }
-        maven {
-            url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
-        }
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
 }
 
