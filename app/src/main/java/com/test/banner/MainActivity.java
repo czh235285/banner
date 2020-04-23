@@ -83,11 +83,11 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         unSelectedDrawable.setCornerRadius(30);
         banner.setIndicatorDrawable(selectedDrawable, unSelectedDrawable, 30, 30);
 ////        简单使用
-//        banner.setImages(App.images).setImageLoader(new GlideImageLoader()).setOnBannerListener
-//                (this).start();
+        banner.setImages(App.images).setImageLoader(new GlideImageLoader()).setOnBannerListener
+                (this).start();
 
         List<View> views = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             TextView tv = new TextView(this);
             tv.setGravity(Gravity.CENTER);
 //            FrameLayout.LayoutParams lp=new FrameLayout.LayoutParams(-1,-1);
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             views.add(tv);
         }
 
-        banner.setViews(views);
+//        banner.setViews(views);
 
     }
 
