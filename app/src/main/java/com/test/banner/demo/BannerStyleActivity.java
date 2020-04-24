@@ -5,16 +5,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.test.banner.App;
 import com.test.banner.R;
 import com.test.banner.loader.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
-public class BannerStyleActivity extends AppCompatActivity implements  AdapterView.OnItemSelectedListener {
+public class BannerStyleActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Banner banner;
     Spinner spinnerStyle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,15 +27,17 @@ public class BannerStyleActivity extends AppCompatActivity implements  AdapterVi
         spinnerStyle.setOnItemSelectedListener(this);
 
         //默认是CIRCLE_INDICATOR
-        banner.setImages(App.images)
-                .setBannerTitles(App.titles)
-                .setImageLoader(new GlideImageLoader())
-                .start();
+        banner.setImages(App.images).setBannerTitles(App.titles).setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Toast.makeText(getApplicationContext(), "你点击了：" + position, Toast.LENGTH_SHORT).show();
+            }
+        }).setImageLoader(new GlideImageLoader()).start();
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (position){
+        switch (position) {
             case 0:
                 banner.updateBannerStyle(BannerConfig.NOT_INDICATOR);
                 break;

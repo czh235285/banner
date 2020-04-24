@@ -398,7 +398,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         }
         bannerDefaultImage.setVisibility(GONE);
         initImages();
-        for (int i = 0; i <= count + 1; i++) {
+        for (int i = 0; i < count ; i++) {
             View imageView = null;
             if (imageLoader != null) {
                 imageView = imageLoader.createImageView(context);
@@ -408,13 +408,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             }
             setScaleType(imageView);
             Object url = null;
-            if (i == 0) {
-                url = imagesUrl.get(count - 1);
-            } else if (i == count + 1) {
-                url = imagesUrl.get(0);
-            } else {
-                url = imagesUrl.get(i - 1);
-            }
+            url = imagesUrl.get(i);
             imageViews.add(imageView);
             if (imageLoader != null) imageLoader.displayImage(context, url, imageView);
             else Log.e(tag, "Please set images loader.");
@@ -512,7 +506,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private final Runnable task = new Runnable() {
         @Override
         public void run() {
-            currentItem = (currentItem+1) % count;
+            currentItem = (currentItem + 1) % count;
             viewPager.setCurrentItem(currentItem);
             handler.postDelayed(task, delayTime);
             return;
@@ -571,8 +565,8 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
-            if (imageViews.get(position).getParent()!=null){
-                ((ViewGroup)imageViews.get(position).getParent()).removeView(imageViews.get(position));
+            if (imageViews.get(position).getParent() != null) {
+                ((ViewGroup) imageViews.get(position).getParent()).removeView(imageViews.get(position));
             }
 
             container.addView(imageViews.get(position));
@@ -611,25 +605,6 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         if (mOnPageChangeListener != null) {
             mOnPageChangeListener.onPageScrollStateChanged(state);
         }
-//        Log.i(tag,"currentItem: "+currentItem);
-        switch (state) {
-//            case 0://No operation
-//                if (currentItem == 0) {
-//                    viewPager.setCurrentItem(count, false);
-//                } else if (currentItem == count + 1) {
-//                    viewPager.setCurrentItem(1, false);
-//                }
-//                break;
-//            case 1://start Sliding
-//                if (currentItem == count + 1) {
-//                    viewPager.setCurrentItem(1, false);
-//                } else if (currentItem == 0) {
-//                    viewPager.setCurrentItem(count, false);
-//                }
-//                break;
-            case 2://end Sliding
-                break;
-        }
     }
 
     @Override
@@ -643,6 +618,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     @Override
     public void onPageSelected(int position) {
         currentItem = position;
+        Log.d("当前", position + "");
         if (mOnPageChangeListener != null) {
             mOnPageChangeListener.onPageSelected(toRealPosition(position));
         }
@@ -651,23 +627,21 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             indicatorImages.get(position).setImageDrawable(selectedDrawable);
             lastPosition = position;
         }
-        if (position == 0) position = count;
-        if (position > count) position = 1;
+//        if (position == 0) position = count;
+//        if (position > count) position = 1;
         switch (bannerStyle) {
             case BannerConfig.CIRCLE_INDICATOR:
                 break;
             case BannerConfig.NUM_INDICATOR:
-                numIndicator.setText(position + "/" + count);
+                numIndicator.setText((position+1) + "/" + count);
                 break;
             case BannerConfig.NUM_INDICATOR_TITLE:
-                numIndicatorInside.setText(position + "/" + count);
-                bannerTitle.setText(titles.get(position - 1));
+                numIndicatorInside.setText((position+1) + "/" + count);
+                bannerTitle.setText(titles.get(position ));
                 break;
             case BannerConfig.CIRCLE_INDICATOR_TITLE:
-                bannerTitle.setText(titles.get(position - 1));
-                break;
             case BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE:
-                bannerTitle.setText(titles.get(position - 1));
+                bannerTitle.setText(titles.get(position ));
                 break;
         }
 
