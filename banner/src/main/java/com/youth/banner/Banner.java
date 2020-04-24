@@ -618,7 +618,6 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     @Override
     public void onPageSelected(int position) {
         currentItem = position;
-        Log.d("当前", position + "");
         if (mOnPageChangeListener != null) {
             mOnPageChangeListener.onPageSelected(toRealPosition(position));
         }
@@ -627,8 +626,6 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             indicatorImages.get(position).setImageDrawable(selectedDrawable);
             lastPosition = position;
         }
-//        if (position == 0) position = count;
-//        if (position > count) position = 1;
         switch (bannerStyle) {
             case BannerConfig.CIRCLE_INDICATOR:
                 break;

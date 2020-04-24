@@ -9,7 +9,7 @@ repositories {
   google()
 }
 dependencies {
-  implementation 'com.github.czh235285:banner:2.0.0'
+  implementation 'com.github.czh235285:banner:2.0.1'
 }
 ```
 
