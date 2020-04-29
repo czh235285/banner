@@ -512,11 +512,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
                 currentItem = (currentItem + 1);
             }
 
-            if (currentItem==0){
-                viewPager.setCurrentItem(currentItem,false);
-            }else {
-                viewPager.setCurrentItem(currentItem);
-            }
+            viewPager.setCurrentItem(currentItem);
 
 
             handler.postDelayed(task, delayTime);
