@@ -398,7 +398,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         }
         bannerDefaultImage.setVisibility(GONE);
         initImages();
-        for (int i = 0; i < count ; i++) {
+        for (int i = 0; i < count; i++) {
             View imageView = null;
             if (imageLoader != null) {
                 imageView = imageLoader.createImageView(context);
@@ -506,7 +506,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private final Runnable task = new Runnable() {
         @Override
         public void run() {
-            currentItem = (currentItem + 1) % count;
+            currentItem = (currentItem + 1);
             viewPager.setCurrentItem(currentItem);
             handler.postDelayed(task, delayTime);
             return;
@@ -546,8 +546,6 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
      * @return 下标从0开始
      */
     public int toRealPosition(int position) {
-//        int realPosition = (position - 1) % count;
-//        if (realPosition < 0) realPosition += count;
         return position;
     }
 
@@ -555,7 +553,10 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 
         @Override
         public int getCount() {
-            return imageViews.size();
+            if (imageViews.size() < 2) {
+                return imageViews.size();
+            }
+            return Integer.MAX_VALUE;
         }
 
         @Override
@@ -565,12 +566,13 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
-            if (imageViews.get(position).getParent() != null) {
-                ((ViewGroup) imageViews.get(position).getParent()).removeView(imageViews.get(position));
+            if (imageViews.get(position % imageViews.size()).getParent() != null) {
+                ((ViewGroup) imageViews.get(position % imageViews.size()).getParent()).removeView(imageViews.get(position % imageViews.size()));
             }
 
-            container.addView(imageViews.get(position));
-            View view = imageViews.get(position);
+
+            container.addView(imageViews.get(position % imageViews.size()));
+            View view = imageViews.get(position%imageViews.size());
             if (bannerListener != null) {
                 view.setOnClickListener(new OnClickListener() {
                     @Override
@@ -578,7 +580,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
                         Log.e(tag,
                                 "你正在使用旧版点击事件接口，下标是从1开始，" + "为了体验请更换为setOnBannerListener，下标从0" +
                                         "开始计算");
-                        bannerListener.OnBannerClick(position);
+                        bannerListener.OnBannerClick(position%imageViews.size());
                     }
                 });
             }
@@ -586,7 +588,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
                 view.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        listener.OnBannerClick(toRealPosition(position));
+                        listener.OnBannerClick(toRealPosition(position%imageViews.size()));
                     }
                 });
             }
@@ -622,23 +624,23 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             mOnPageChangeListener.onPageSelected(toRealPosition(position));
         }
         if (bannerStyle == BannerConfig.CIRCLE_INDICATOR || bannerStyle == BannerConfig.CIRCLE_INDICATOR_TITLE || bannerStyle == BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE) {
-            indicatorImages.get(lastPosition).setImageDrawable(unSelectedDrawable);
-            indicatorImages.get(position).setImageDrawable(selectedDrawable);
+            indicatorImages.get(lastPosition % imageViews.size()).setImageDrawable(unSelectedDrawable);
+            indicatorImages.get(position% imageViews.size()).setImageDrawable(selectedDrawable);
             lastPosition = position;
         }
         switch (bannerStyle) {
             case BannerConfig.CIRCLE_INDICATOR:
                 break;
             case BannerConfig.NUM_INDICATOR:
-                numIndicator.setText((position+1) + "/" + count);
+                numIndicator.setText((position% imageViews.size() + 1) + "/" + count);
                 break;
             case BannerConfig.NUM_INDICATOR_TITLE:
-                numIndicatorInside.setText((position+1) + "/" + count);
-                bannerTitle.setText(titles.get(position ));
+                numIndicatorInside.setText((position% imageViews.size() + 1) + "/" + count);
+                bannerTitle.setText(titles.get(position% imageViews.size()));
                 break;
             case BannerConfig.CIRCLE_INDICATOR_TITLE:
             case BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE:
-                bannerTitle.setText(titles.get(position ));
+                bannerTitle.setText(titles.get(position% imageViews.size()));
                 break;
         }
 
