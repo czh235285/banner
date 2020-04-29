@@ -15,10 +15,12 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.test.banner.demo.BannerAnimationActivity;
 import com.test.banner.demo.BannerLocalActivity;
 import com.test.banner.demo.BannerStyleActivity;
@@ -83,20 +85,24 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         unSelectedDrawable.setCornerRadius(30);
         banner.setIndicatorDrawable(selectedDrawable, unSelectedDrawable, 30, 30);
 ////        简单使用
-        banner.setImages(App.images).setImageLoader(new GlideImageLoader()).setOnBannerListener
-                (this).start();
+//        banner.setImages(App.images).setImageLoader(new GlideImageLoader()).setOnBannerListener
+//                (this).start();
 
         List<View> views = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            TextView tv = new TextView(this);
-            tv.setGravity(Gravity.CENTER);
-//            FrameLayout.LayoutParams lp=new FrameLayout.LayoutParams(-1,-1);
-//            tv.setLayoutParams(lp);
-            tv.setText(i + "");
+        String[] urls = getResources().getStringArray(R.array.url);
+        List list = Arrays.asList(urls);
+        List<String> images = new ArrayList(list);
+        for (int i = 0; i < 2; i++) {
+            ImageView tv = new ImageView(this);
+            tv.setScaleType(ImageView.ScaleType.FIT_XY);
+            FrameLayout.LayoutParams lp=new FrameLayout.LayoutParams(-1,-1);
+            tv.setLayoutParams(lp);
+
+            Glide.with(this).load(images.get(i)).into(tv);
             views.add(tv);
         }
 
-//        banner.setViews(views);
+        banner.setViews(views);
 
     }
 

@@ -506,8 +506,19 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private final Runnable task = new Runnable() {
         @Override
         public void run() {
-            currentItem = (currentItem + 1);
-            viewPager.setCurrentItem(currentItem);
+            if (imageViews.size()<3){
+                currentItem = (currentItem + 1)%imageViews.size();
+            }else {
+                currentItem = (currentItem + 1);
+            }
+
+            if (currentItem==0){
+                viewPager.setCurrentItem(currentItem,false);
+            }else {
+                viewPager.setCurrentItem(currentItem);
+            }
+
+
             handler.postDelayed(task, delayTime);
             return;
 
@@ -553,7 +564,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 
         @Override
         public int getCount() {
-            if (imageViews.size() < 2) {
+            if (imageViews.size() < 3) {
                 return imageViews.size();
             }
             return Integer.MAX_VALUE;
